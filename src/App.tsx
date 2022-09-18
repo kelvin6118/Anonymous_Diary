@@ -8,12 +8,10 @@ function App() {
     <div className="App">
       <Header />
 
-      {/* nav */}
-
-      {/* display */}
-
       {/* create post */}
 
+      {/* display */}
+      
       {/* footer */}
 
     </div>
