@@ -9,7 +9,7 @@ export const fetchTrending =async () =>{
     
 }
 
-export async function fetchSearch(input:string){
+export async function fetchSearch(input:string|undefined){
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=8PiyixOfCPFFExgTLW5347Y8xbuMoYGk&q=${input}&limit=25&offset=0&rating=g&lang=en`)
     const data = await response.json();
     const result = data.data;

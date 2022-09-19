@@ -11,6 +11,7 @@ function CreateForm({}: Props) {
   const [openGiphy, setGiphyActive] = useState<boolean>(true);
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
+  const [search, setSearch] = useState<string>();
   const [giphyDisplay, setGiphy] = useState();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
@@ -43,6 +44,14 @@ function CreateForm({}: Props) {
     fetchTrending().then(
       response => setGiphy(response)
     );
+  }
+
+  const searchGiphy =async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchSearch(search).then(
+      response => setGiphy(response)
+    );
+    console.log(search);
   }
 
   useEffect(()=>{
@@ -106,7 +115,10 @@ function CreateForm({}: Props) {
             )}
           {openGiphy && (
               <div>
-                Giphy
+                <form className='flex space-x-2' onSubmit={searchGiphy}>
+                  <input type="text" onChange={(e)=>setSearch(e.target.value)}/>
+                  <button type='submit'>Search</button>
+                </form>
               </div>
             )}
         </div>
