@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface FormState {
-    open: boolean,
-    Emoji: boolean,
-    Giphy: boolean,
+    FormSwitch: boolean,
+    EmojiSwitch: boolean,
+    GiphySwitch: boolean,
     selectedGif: string
 }
 
 const initialState: FormState = {
-    open: false,
-    Emoji: false,
-    Giphy: true,
+    FormSwitch: false,
+    EmojiSwitch: false,
+    GiphySwitch: true,
     selectedGif: ""
 }
 
@@ -19,23 +19,14 @@ export const FormSlice = createSlice({
     name: 'form',
     initialState,
     reducers:{
-        openForm: (state) => {
-            state.open = true;
+        switchForm: (state, action: PayloadAction<boolean>) => {
+            state.FormSwitch = action.payload;
         },
-        closeForm: (state) => {
-            state.open = false;
+        switchEmoji: (state, action: PayloadAction<boolean>) =>{
+            state.EmojiSwitch = action.payload;
         },
-        openEmoji: (state) =>{
-            state.Emoji = true;
-        },
-        closeEmoji: (state) =>{
-            state.Emoji = true;
-        },
-        openGiphy: (state) =>{
-            state.Giphy = true;
-        },
-        closeGiphy: (state) =>{
-            state.Giphy = true;
+        switchGiphy: (state, action: PayloadAction<boolean>) =>{
+            state.GiphySwitch = action.payload;
         },
         updateGif: (state, action: PayloadAction<string>) => {
             state.selectedGif = action.payload;
@@ -43,6 +34,6 @@ export const FormSlice = createSlice({
     }
 })
 
-export const {openForm, closeForm, openEmoji, closeEmoji, openGiphy, closeGiphy, updateGif} = FormSlice.actions
+export const {switchForm, switchEmoji, switchGiphy, updateGif} = FormSlice.actions
 
 export default FormSlice.reducer
