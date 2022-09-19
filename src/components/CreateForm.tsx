@@ -13,10 +13,19 @@ function CreateForm({}: Props) {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
   };
 
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(`title is ${title} and description is ${description}`)
+  }
+
   return (
     <div className='flex flex-col justify-center absolute right-10 top-10 border-2 border-sky-500 box-border'>
       <h2 className="text-slate-400 text-lg bg-stone-800 ">Diary Form</h2>
-        <form className='flex flex-col space-y-2 p-2 w-fit mx-auto bg-zinc-600'>
+        <form 
+        className='flex flex-col space-y-2 p-2 w-fit mx-auto bg-zinc-600'
+        onSubmit={handleSubmit}
+        >
             <label htmlFor="Title" className='text-left text-slate-400'>
                 Title
             </label>
@@ -44,7 +53,7 @@ function CreateForm({}: Props) {
               </div>
               <div>
                 <button type='submit'>
-                  submit
+                  Submit
                 </button>
               </div>
             </div>
