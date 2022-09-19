@@ -13,6 +13,7 @@ function CreateForm({}: Props) {
   const [description, setDescription] = useState<string>();
   const [search, setSearch] = useState<string>();
   const [giphyDisplay, setGiphy] = useState<any[]>();
+  const [selected, selectGiphy] = useState<string>();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
@@ -20,7 +21,7 @@ function CreateForm({}: Props) {
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`title is ${title} and description is ${description}`)
+    console.log(`title is ${title} and description is ${description} and gif ${selected}`)
   }
 
   const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
@@ -126,7 +127,13 @@ function CreateForm({}: Props) {
                 </form>
                 <div className='flex flex-row flex-wrap overflow-y-scroll h-[50vh]'>
                   {giphyDisplay && giphyDisplay.map((giphy) => (
-                    <img src={giphy.images["fixed_height_small"].url}/>
+                    <img 
+                    className= {`${selected == giphy.images["fixed_height_small"].url ? "border-2": ""} cursor-pointer `}
+                    src={giphy.images["fixed_height_small"].url}
+                    onClick={() => {
+                      selectGiphy(giphy.images["fixed_height_small"].url);
+                    }}
+                    />
                   ))}
                 </div>
               </div>
