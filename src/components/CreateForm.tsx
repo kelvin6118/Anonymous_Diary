@@ -34,13 +34,21 @@ function CreateForm({}: Props) {
               className=''
               onChange={(e) => setDescription(e.target.value)}
             />
-            <div 
-            className='w-7 h-7 cursor-pointer right-0'
-            onClick={() => setEmojiActive(!openEmoji)}>
-              <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+            <div className='flex justify-between'>
+              <div className=''>
+                <div 
+                className='w-7 h-7 cursor-pointer right-0'
+                onClick={() => setEmojiActive(!openEmoji)}>
+                  <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+                </div>
+              </div>
+              <div>
+                <button type='submit'>
+                  submit
+                </button>
+              </div>
             </div>
         </form>
-
         <div className="h-fit w-full">
           {openEmoji && (
               <div>
