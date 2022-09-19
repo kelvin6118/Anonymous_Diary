@@ -124,9 +124,11 @@ function CreateForm({}: Props) {
                   onChange={(e)=>setSearch(e.target.value)}/>
                   <button type='submit'>Search</button>
                 </form>
-                {giphyDisplay && giphyDisplay.map((giphy) => (
-                  <img src={giphy.images["fixed_height_small"].url}/>
-                ))}
+                <div className='flex flex-row flex-wrap overflow-y-scroll h-screen'>
+                  {giphyDisplay && giphyDisplay.map((giphy) => (
+                    <img src={giphy.images["fixed_height_small"].url}/>
+                  ))}
+                </div>
               </div>
               
             )}
