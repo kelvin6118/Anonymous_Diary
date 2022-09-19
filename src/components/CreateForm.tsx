@@ -12,7 +12,7 @@ function CreateForm({}: Props) {
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [search, setSearch] = useState<string>();
-  const [giphyDisplay, setGiphy] = useState();
+  const [giphyDisplay, setGiphy] = useState<any[]>();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
@@ -23,7 +23,7 @@ function CreateForm({}: Props) {
     console.log(`title is ${title} and description is ${description}`)
   }
 
-  const handleEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
+  const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
     if(openEmoji == false){
       setGiphyActive(false);
     }else{
@@ -32,7 +32,7 @@ function CreateForm({}: Props) {
     setEmojiActive(!openEmoji)
   }
 
-  const handleGiphy = (e:React.MouseEvent<Element, MouseEvent>) => {
+  const activeGiphy = (e:React.MouseEvent<Element, MouseEvent>) => {
     setGiphyActive(true);
     console.log(giphyDisplay);
     if(openEmoji == true){
@@ -48,10 +48,11 @@ function CreateForm({}: Props) {
 
   const searchGiphy =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchSearch(search).then(
-      response => setGiphy(response)
-    );
-    console.log(search);
+    if(search != undefined){
+      fetchSearch(search).then(
+        response => setGiphy(response)
+      );
+    }
   }
 
   useEffect(()=>{
@@ -59,10 +60,10 @@ function CreateForm({}: Props) {
   },[])
 
   return (
-    <div className='flex flex-col justify-center absolute right-10 top-10 border-2 border-sky-500 box-border bg-zinc-600'>
+    <div className='flex flex-col justify-center absolute right-10 top-10 bg-zinc-600 w-96'>
       <h2 className="text-slate-400 text-lg bg-stone-800 ">Diary Form</h2>
         <form 
-        className='flex flex-col space-y-2 p-2 w-full mx-auto '
+        className='flex flex-col space-y-2 p-2 w-full boder-box'
         onSubmit={handleSubmit}
         >
             <label htmlFor="Title" className='text-left text-slate-400'>
@@ -86,13 +87,13 @@ function CreateForm({}: Props) {
               <div className='flex'>
                 <div 
                 className='w-7 h-7 cursor-pointer right-0'
-                onClick={handleEmoji}>
-                  <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+                onClick={activeGiphy}>
+                  <GifIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
                 </div>
                 <div 
                 className='w-7 h-7 cursor-pointer right-0'
-                onClick={handleGiphy}>
-                  <GifIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+                onClick={activeEmoji}>
+                  <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
                 </div>
               </div>
               <div>
@@ -104,8 +105,9 @@ function CreateForm({}: Props) {
         </form>
         <div className="h-fit w-full">
           {openEmoji && (
-              <div>
+              <div className='flex justify-center mb-5'>
                 <Picker 
+                
                 onEmojiClick={function (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData):
                   void {
                   addEmoji(event, data);
@@ -114,12 +116,19 @@ function CreateForm({}: Props) {
               </div>
             )}
           {openGiphy && (
-              <div>
-                <form className='flex space-x-2' onSubmit={searchGiphy}>
-                  <input type="text" onChange={(e)=>setSearch(e.target.value)}/>
+              <div className='flex flex-col'>
+                <form className='flex space-x-2 p-2 justify-evenly' onSubmit={searchGiphy}>
+                  <input 
+                  className='w-fit'
+                  type="text" 
+                  onChange={(e)=>setSearch(e.target.value)}/>
                   <button type='submit'>Search</button>
                 </form>
+                {giphyDisplay && giphyDisplay.map((giphy) => (
+                  <img src={giphy.images["fixed_height_small"].url}/>
+                ))}
               </div>
+              
             )}
         </div>
     </div>
