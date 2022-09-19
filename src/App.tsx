@@ -3,17 +3,21 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Display from './components/Display';
+import {store} from './redux/store';
+import {Provider} from 'react-redux';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <Provider store={store}>
+      <div className="App">
+        <Header />
 
-      <Display/>
-      
-      {/* footer */}
+        <Display/>
+        
+        {/* footer */}
 
-    </div>
+      </div>
+    </Provider>
   );
 }
 
