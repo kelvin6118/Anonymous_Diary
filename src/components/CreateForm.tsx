@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import {FaceSmileIcon} from '@heroicons/react/24/solid';
+import {fetchTrending, fetchSearch} from "../util/fetchGiphy";
+
 type Props = {}
 
 /* eslint-disable no-unused-expressions */
@@ -18,6 +20,7 @@ function CreateForm({}: Props) {
 
     console.log(`title is ${title} and description is ${description}`)
   }
+  console.log(fetchTrending());
 
   return (
     <div className='flex flex-col justify-center absolute right-10 top-10 border-2 border-sky-500 box-border bg-zinc-600'>
