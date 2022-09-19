@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
-import {FaceSmileIcon, GifIcon} from '@heroicons/react/24/solid';
+import {FaceSmileIcon, GifIcon, ArrowRightIcon} from '@heroicons/react/24/solid';
 import {fetchTrending, fetchSearch} from "../util/fetchGiphy";
 import {useSelector, useDispatch} from 'react-redux';
-import { switchEmoji, switchGiphy } from '../redux/createFormSlice';
+import { switchEmoji, switchGiphy ,switchForm} from '../redux/createFormSlice';
 import { RootState } from '../redux/store';
 import Giphy from './Giphy'
 
@@ -27,8 +27,6 @@ function CreateForm({}: Props) {
   }
 
   const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
-    
-    console.log(Emoji, giphy)
     if(Emoji == true){
       dispatch(switchGiphy(true));
     }else{
@@ -46,8 +44,16 @@ function CreateForm({}: Props) {
 
   return (
     <section className='flex flex-col justify-center absolute right-0 top-0 bg-zinc-600 w-96'>
-      <h2 className="text-slate-400 text-xl bg-stone-800 p-5">Diary Form</h2>
-        <form 
+      <h2 className="text-slate-400 text-xl bg-stone-800 p-5">
+        Diary Form
+        <div
+        onClick={() => dispatch(switchForm(false))}
+        className='h-10 w-10 absolute top-3 right-3 cursor-pointer'>
+          <ArrowRightIcon pointerEvents="none"/>
+        </div>
+      </h2>
+
+      <form 
         className='flex flex-col space-y-2 p-2 w-full boder-box'
         onSubmit={handleSubmit}
         >
