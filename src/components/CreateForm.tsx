@@ -10,7 +10,7 @@ function CreateForm({}: Props) {
   const [description, setDescription] = useState<any>();
 
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
-    setDescription(description + emojiObject.emoji)
+    setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
   };
 
   return (
@@ -34,19 +34,25 @@ function CreateForm({}: Props) {
               className=''
               onChange={(e) => setDescription(e.target.value)}
             />
-        </form>
-        <button onClick={() => setEmojiActive(!openEmoji)}>
-          <FaceSmileIcon pointerEvents="none" className='h-10 w-10'/>
-          {openEmoji && (
-            <div>
-              <Picker onEmojiClick={function (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData):
-                void {
-                 addEmoji(event, data);
-                } } />
+            <div 
+            className='w-7 h-7 cursor-pointer right-0'
+            onClick={() => setEmojiActive(!openEmoji)}>
+              <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
             </div>
-          )}
-        </button>
+        </form>
         
+        <div className="h-fit w-full">
+          {openEmoji && (
+              <div>
+                <Picker 
+                onEmojiClick={function (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData):
+                  void {
+                  addEmoji(event, data);
+                  } }
+                />
+              </div>
+            )}
+        </div>
     </div>
   )
 }
