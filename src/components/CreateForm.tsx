@@ -15,8 +15,8 @@ function CreateForm({}: Props) {
 
   return (
     <div className='flex flex-col justify-center absolute right-10 top-10 border-2 border-sky-500 box-border'>
-      <h2 className="text-slate-400 text-lg">Diary Form</h2>
-        <form className='flex flex-col space-y-2 p-2 w-fit mx-auto'>
+      <h2 className="text-slate-400 text-lg bg-stone-800 ">Diary Form</h2>
+        <form className='flex flex-col space-y-2 p-2 w-fit mx-auto bg-zinc-600'>
             <label htmlFor="Title" className='text-left text-slate-400'>
                 Title
             </label>
@@ -40,7 +40,7 @@ function CreateForm({}: Props) {
               <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
             </div>
         </form>
-        
+
         <div className="h-fit w-full">
           {openEmoji && (
               <div>
