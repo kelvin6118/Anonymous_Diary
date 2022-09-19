@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
-import {FaceSmileIcon} from '@heroicons/react/24/solid';
+import {FaceSmileIcon, GifIcon} from '@heroicons/react/24/solid';
 import {fetchTrending, fetchSearch} from "../util/fetchGiphy";
 
 type Props = {}
@@ -8,19 +8,46 @@ type Props = {}
 /* eslint-disable no-unused-expressions */
 function CreateForm({}: Props) {
   const [openEmoji, setEmojiActive] = useState<boolean>(false);
+  const [openGiphy, setGiphyActive] = useState<boolean>(true);
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
-
+  const [giphyDisplay, setGiphy] = useState();
+  
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
   };
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     console.log(`title is ${title} and description is ${description}`)
   }
-  console.log(fetchTrending());
+
+  const handleEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
+    if(openEmoji == false){
+      setGiphyActive(false);
+    }else{
+      setGiphyActive(true);
+    }
+    setEmojiActive(!openEmoji)
+  }
+
+  const handleGiphy = (e:React.MouseEvent<Element, MouseEvent>) => {
+    setGiphyActive(true);
+    console.log(giphyDisplay);
+    if(openEmoji == true){
+      setEmojiActive(false);
+    }
+  }
+
+  const getGiphy =async () => {
+    fetchTrending().then(
+      response => setGiphy(response)
+    );
+  }
+
+  useEffect(()=>{
+    getGiphy();
+  },[])
 
   return (
     <div className='flex flex-col justify-center absolute right-10 top-10 border-2 border-sky-500 box-border bg-zinc-600'>
@@ -46,12 +73,17 @@ function CreateForm({}: Props) {
               className=''
               onChange={(e) => setDescription(e.target.value)}
             />
-            <div className='flex justify-between'>
-              <div className=''>
+            <div className='flex flex-row justify-between'>
+              <div className='flex'>
                 <div 
                 className='w-7 h-7 cursor-pointer right-0'
-                onClick={() => setEmojiActive(!openEmoji)}>
+                onClick={handleEmoji}>
                   <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+                </div>
+                <div 
+                className='w-7 h-7 cursor-pointer right-0'
+                onClick={handleGiphy}>
+                  <GifIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
                 </div>
               </div>
               <div>
@@ -70,6 +102,11 @@ function CreateForm({}: Props) {
                   addEmoji(event, data);
                   } }
                 />
+              </div>
+            )}
+          {openGiphy && (
+              <div>
+                Giphy
               </div>
             )}
         </div>
