@@ -2,18 +2,22 @@ import React, {useEffect, useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import {FaceSmileIcon, GifIcon} from '@heroicons/react/24/solid';
 import {fetchTrending, fetchSearch} from "../util/fetchGiphy";
+import {useSelector, useDispatch} from 'react-redux';
+import { closeEmoji, closeGiphy, openEmoji, openGiphy } from '../redux/createFormSlice';
+import { RootState } from '../redux/store';
 
 type Props = {}
 
-/* eslint-disable no-unused-expressions */
 function CreateForm({}: Props) {
-  const [openEmoji, setEmojiActive] = useState<boolean>(false);
-  const [openGiphy, setGiphyActive] = useState<boolean>(true);
+  const Emoji = useSelector((state: RootState)=>state.form.Emoji);
+  const Giphy = useSelector((state: RootState)=>state.form.Giphy);
+  
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const [search, setSearch] = useState<string>();
   const [giphyDisplay, setGiphy] = useState<any[]>();
   const [selected, selectGiphy] = useState<string>();
+  const dispatch = useDispatch();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
@@ -25,19 +29,19 @@ function CreateForm({}: Props) {
   }
 
   const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
-    if(openEmoji == false){
-      setGiphyActive(false);
+    if(Emoji == false){
+      dispatch(closeGiphy);
+      dispatch(openEmoji);
     }else{
-      setGiphyActive(true);
+      dispatch(openGiphy);
+      dispatch(closeEmoji);
     }
-    setEmojiActive(!openEmoji)
   }
 
   const activeGiphy = (e:React.MouseEvent<Element, MouseEvent>) => {
-    setGiphyActive(true);
-    console.log(giphyDisplay);
-    if(openEmoji == true){
-      setEmojiActive(false);
+    dispatch(openGiphy);
+    if(Emoji == true){
+      dispatch(closeEmoji);
     }
   }
 
@@ -61,8 +65,8 @@ function CreateForm({}: Props) {
   },[])
 
   return (
-    <div className='flex flex-col justify-center absolute right-10 top-10 bg-zinc-600 w-96'>
-      <h2 className="text-slate-400 text-lg bg-stone-800 ">Diary Form</h2>
+    <section className='flex flex-col justify-center absolute right-0 top-0 bg-zinc-600 w-96'>
+      <h2 className="text-slate-400 text-xl bg-stone-800 p-5">Diary Form</h2>
         <form 
         className='flex flex-col space-y-2 p-2 w-full boder-box'
         onSubmit={handleSubmit}
@@ -105,7 +109,7 @@ function CreateForm({}: Props) {
             </div>
         </form>
         <div className="h-fit w-full">
-          {openEmoji && (
+          {Emoji && (
               <div className='flex justify-center mb-5'>
                 <Picker 
                 
@@ -116,7 +120,7 @@ function CreateForm({}: Props) {
                 />
               </div>
             )}
-          {openGiphy && (
+          {Giphy && (
               <div className='flex flex-col'>
                 <form className='flex space-x-2 p-2 justify-evenly' onSubmit={searchGiphy}>
                   <input 
@@ -125,7 +129,7 @@ function CreateForm({}: Props) {
                   onChange={(e)=>setSearch(e.target.value)}/>
                   <button type='submit'>Search</button>
                 </form>
-                <div className='flex flex-row flex-wrap overflow-y-scroll h-[50vh]'>
+                <div className='flex flex-row flex-wrap justify-evenly overflow-y-scroll h-[50vh]'>
                   {giphyDisplay && giphyDisplay.map((giphy) => (
                     <img 
                     className= {`${selected == giphy.images["fixed_height_small"].url ? "border-2": ""} cursor-pointer `}
@@ -140,7 +144,7 @@ function CreateForm({}: Props) {
               
             )}
         </div>
-    </div>
+    </section>
   )
 }
 
