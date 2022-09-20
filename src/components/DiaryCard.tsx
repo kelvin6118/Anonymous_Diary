@@ -1,26 +1,24 @@
 import React,{useState} from 'react'
-import { Emoji } from '../typing'
+import { Emoji, Comment} from '../typing'
 
 
 type Props = {}
 
 export default function DiaryCard({}: Props) {
     const [emoji,updateEmoji] = useState<Emoji>({happy: 0, like: 0, love: 0});
-    const [comment, setComment] = useState<string>("");
-
+    const [input, setComment] = useState<string>("");
     const date:string = new Date().toUTCString();
+    const comment:Comment = {date: date, comment: input};
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(comment, date);
     }
 
     return (
-
-            <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 space-y-5 min-w-[80%] lg:min-w-[30%] md:min-w-[40%]" id="id" >
-                <h3 className='w-full'>
+        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 space-y-5 min-w-[80%] lg:min-w-[30%] md:min-w-[40%]" id="id" >
+            <h3 className='w-full'>
                 Title
-                </h3>
+            </h3>
             <div className="space-y-2">
                 <img 
                 className='w-full'
@@ -30,8 +28,8 @@ export default function DiaryCard({}: Props) {
                 </p>
                 <ul className="text-left">
                 <li className="comment">
-                    <h4 className="comment--date">0/20/2022 17:43:23</h4>
-                    <h3 className="comment--body">this is a comment</h3>
+                    <h4 className="comment--date">{comment.date}</h4>
+                    <h3 className="comment--body">{comment.comment}</h3>
                 </li>
                 </ul>
             </div>
