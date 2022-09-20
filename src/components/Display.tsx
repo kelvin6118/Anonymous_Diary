@@ -5,7 +5,7 @@ type Props = {}
 
 function Display({}: Props) {
   return (
-    <div className='w-full h-fit min-h-screen bg-zinc-800 flex flex-wrap justify-evenly'>
+    <div className='w-full h-fit min-h-screen flex flex-wrap justify-evenly space-x-5 space-y-5'>
       <DiaryCard/>
     </div>
   )

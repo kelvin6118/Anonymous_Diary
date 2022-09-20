@@ -5,7 +5,7 @@ type Props = {}
 export default function DiaryCard({}: Props) {
   return (
 
-        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 space-y-5 min-w-[80%] lg:min-w-[30%] md:min-w-[50%]" id="{{id}}" >
+        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 space-y-5 min-w-[80%] lg:min-w-[30%] md:min-w-[40%]" id="id" >
             <h3 className='w-full'>
             Title
             </h3>
@@ -23,11 +23,11 @@ export default function DiaryCard({}: Props) {
               </li>
             </ul>
           </div>
-          <div className="card--footer">
+          <div className="footer">
             <div className="emoji--container text-left">
-              <button className="emoji" value="{{emo1}}" id="emo1">😀{1}</button>
-              <button className="emoji" value="{{emo2}}" id="emo2">👍{1}</button>
-              <button className="emoji" value="{{emo3}}" id="emo3">💖{1}</button>
+              <button className="emoji" value="emo1" id="emo1">😀{1}</button>
+              <button className="emoji" value="emo2" id="emo2">👍{1}</button>
+              <button className="emoji" value="emo3" id="emo3">💖{1}</button>
             </div>
             <form className="flex space-x-5">
                 <div>

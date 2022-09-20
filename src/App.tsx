@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
+      <div className="App space-y-5 bg-zinc-800">
         <Header />
 
         <Display/>
