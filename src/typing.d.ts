@@ -10,7 +10,7 @@ interface emoji{
 }
 
 export interface Diary {
-    id: string;
+    id?: string;
     title: string;
     giphy: string;
     description: string;
