@@ -33,7 +33,7 @@ function CreateForm({visible}: Props) {
     console.log(data);
   }
 
-  const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
+  const activeEmoji = () => {
     if(Emoji == true){
       dispatch(switchGiphy(true));
     }else{
@@ -42,11 +42,20 @@ function CreateForm({visible}: Props) {
     dispatch(switchEmoji(!Emoji));
   }
 
-  const activeGiphy = (e:React.MouseEvent<Element, MouseEvent>) => {
+  const activeGiphy = () => {
     dispatch(switchGiphy(true));
     if(Emoji == true){
       dispatch(switchEmoji(false));
     }
+  }
+
+  const beforeCloseForm = () => new Promise<void>((resolve, reject) => {
+    activeGiphy();
+    resolve();
+  })
+
+  const closeForm = (e:React.MouseEvent<Element, MouseEvent>) => {
+    beforeCloseForm().then(()=>dispatch(switchForm(false)));
   }
 
   return (
@@ -70,7 +79,7 @@ function CreateForm({visible}: Props) {
       <h2 className=" text-xl text-slate-400 p-5 cursor-default">
         Diary Form
         <div
-        onClick={() => dispatch(switchForm(false))}
+        onClick={closeForm}
         className='h-10 w-10 absolute top-3 right-3 cursor-pointer hover:scale-125 transition duration-200'>
           <ArrowRightIcon pointerEvents="none"/>
         </div>
@@ -123,7 +132,7 @@ function CreateForm({visible}: Props) {
         <div className="h-fit w-full">
           {Emoji && (
               <div className='flex justify-center mb-5'>
-                <Picker               
+                <Picker
                 onEmojiClick={function (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData):
                   void {
                   addEmoji(event, data);
