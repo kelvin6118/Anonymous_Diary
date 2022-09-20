@@ -13,7 +13,7 @@ export default function Giphy({}: Props) {
     const selected = useSelector((state: RootState)=>state.form.selectedGif);
     const dispatch = useDispatch();
 
-    const getGiphy =async () => {
+    const getGiphy = async () => {
         fetchTrending().then(
           response => setGiphy(response)
         );
@@ -55,7 +55,6 @@ export default function Giphy({}: Props) {
             ))}
           </div>
         </div>
-        
       )}</>
   )
 }

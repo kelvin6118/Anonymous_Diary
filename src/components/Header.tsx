@@ -8,7 +8,7 @@ import { switchForm } from '../redux/createFormSlice';
 type Props = {}
 
 export default function Header({}: Props) {
-  const open = useSelector((state: RootState)=>state.form.FormSwitch);
+  const open:boolean = useSelector((state: RootState)=>state.form.FormSwitch);
   const dispatch = useDispatch();
 
   return (
@@ -23,12 +23,13 @@ export default function Header({}: Props) {
           className='h-10 w-10 cursor-pointer hover:scale-125 transition duration-200'
           onClick={() => dispatch(switchForm(true))}
           >
-            <PlusIcon 
+          <PlusIcon 
             className='h-10 w-10 text-slate-400'
             pointerEvents="none"/>
           </div>
 
-          {open && <CreateForm />}
+           
+          <CreateForm visible={open}/>
         </div>
         
     </header>

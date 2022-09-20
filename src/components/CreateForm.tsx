@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import {FaceSmileIcon, GifIcon, ArrowRightIcon} from '@heroicons/react/24/solid';
-import {fetchTrending, fetchSearch} from "../util/fetchGiphy";
 import {useSelector, useDispatch} from 'react-redux';
 import { switchEmoji, switchGiphy ,switchForm} from '../redux/createFormSlice';
 import { RootState } from '../redux/store';
 import Giphy from './Giphy'
+import { AnimatePresence, motion } from 'framer-motion';
 
-type Props = {}
+type Props = {visible: boolean}
 
-function CreateForm({}: Props) {
+function CreateForm({visible}: Props) {
   const Emoji = useSelector((state: RootState)=>state.form.EmojiSwitch);
-  const giphy = useSelector((state: RootState)=>state.form.GiphySwitch);
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
   const selected = useSelector((state: RootState)=>state.form.selectedGif);
@@ -43,7 +42,23 @@ function CreateForm({}: Props) {
   }
 
   return (
-    <section className='flex flex-col justify-center absolute right-0 top-0 bg-zinc-600 w-96'>
+    <AnimatePresence>
+    {visible && <motion.section
+    key="modal"
+    initial={{
+      x:500,
+      opacity: 0,
+    }}
+    animate={{
+      x:0,
+      opacity:1,
+    }}
+    exit={{
+      x:500,
+      opacity: 0,
+    }}
+    transition= {{duration: 1}}
+    className='flex flex-col justify-center absolute right-0 top-0 bg-zinc-600 w-96'>
       <h2 className="text-slate-400 text-xl bg-stone-800 p-5">
         Diary Form
         <div
@@ -97,8 +112,7 @@ function CreateForm({}: Props) {
         <div className="h-fit w-full">
           {Emoji && (
               <div className='flex justify-center mb-5'>
-                <Picker 
-                
+                <Picker               
                 onEmojiClick={function (event: React.MouseEvent<Element, MouseEvent>, data: IEmojiData):
                   void {
                   addEmoji(event, data);
@@ -108,7 +122,8 @@ function CreateForm({}: Props) {
             )}
           <Giphy/>
         </div>
-    </section>
+    </motion.section>}
+    </AnimatePresence>
   )
 }
 
