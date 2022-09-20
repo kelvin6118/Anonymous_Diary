@@ -6,13 +6,14 @@ import { switchEmoji, switchGiphy ,switchForm} from '../redux/createFormSlice';
 import { RootState } from '../redux/store';
 import Giphy from './Giphy'
 import { AnimatePresence, motion } from 'framer-motion';
+import { Diary } from '../typing'
 
 type Props = {visible: boolean}
 
 function CreateForm({visible}: Props) {
   const Emoji = useSelector((state: RootState)=>state.form.EmojiSwitch);
-  const [title, setTitle] = useState<string>();
-  const [description, setDescription] = useState<string>();
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const selected = useSelector((state: RootState)=>state.form.selectedGif);
   const dispatch = useDispatch();
   
@@ -22,7 +23,14 @@ function CreateForm({visible}: Props) {
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`title is ${title} and description is ${description} and gif ${selected} `)
+    const data:Diary = {
+      title: title,
+      description: description,
+      giphy: selected,
+      comments: [],
+      emoji: {happy: 0,like: 0,love: 0}
+    }
+    console.log(data);
   }
 
   const activeEmoji = (e:React.MouseEvent<Element, MouseEvent>) => {
