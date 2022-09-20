@@ -38,12 +38,12 @@ export default function Giphy({}: Props) {
         <div className='flex flex-col'>
           <form className='flex space-x-2 p-2 justify-evenly' onSubmit={searchGiphy}>
             <input 
-            className='w-fit'
+            className='outline-none p-1 bg-slate-800 text-slate-400 placeholder:text-slate-400'
             type="text" 
             onChange={(e)=>setSearch(e.target.value)}/>
-            <button type='submit'>Search</button>
+            <button className='text-slate-400 hover:scale-125 transition duration-200' type='submit'>Search</button>
           </form>
-          <div className='flex flex-row flex-wrap justify-evenly overflow-y-scroll h-[50vh]'>
+          <div className='flex flex-row flex-wrap justify-evenly space-y-1 overflow-y-scroll h-[50vh]'>
             {giphyDisplay && giphyDisplay.map((giphy) => (
               <img 
               className= {`${selected == giphy.images["fixed_height_small"].url ? "border-2": ""} cursor-pointer `}

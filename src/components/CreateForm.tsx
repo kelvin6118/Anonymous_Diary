@@ -58,12 +58,12 @@ function CreateForm({visible}: Props) {
       opacity: 0,
     }}
     transition= {{duration: 1}}
-    className='flex flex-col justify-center absolute right-0 top-0 bg-zinc-600 w-96'>
-      <h2 className="text-slate-400 text-xl bg-stone-800 p-5">
+    className='flex flex-col justify-center absolute right-0 top-0 bg-gray-900 w-96'>
+      <h2 className=" text-xl text-slate-400 p-5 cursor-default">
         Diary Form
         <div
         onClick={() => dispatch(switchForm(false))}
-        className='h-10 w-10 absolute top-3 right-3 cursor-pointer'>
+        className='h-10 w-10 absolute top-3 right-3 cursor-pointer hover:scale-125 transition duration-200'>
           <ArrowRightIcon pointerEvents="none"/>
         </div>
       </h2>
@@ -72,38 +72,41 @@ function CreateForm({visible}: Props) {
         className='flex flex-col space-y-2 p-2 w-full boder-box'
         onSubmit={handleSubmit}
         >
-            <label htmlFor="Title" className='text-left text-slate-400'>
-                Title
-            </label>
-            <input
-              type="text"
-              className=''
-              onChange={(e) => setTitle(e.target.value)}
-            />
+          <label htmlFor="title" className='text-left text-slate-400'>
+              Title
+          </label>
+          <input
+            type="text"
+            placeholder='Hello, How is your day'
+            required={true}
+            className='outline-none p-2 bg-slate-800 text-slate-400 placeholder:text-slate-400'
+            onChange={(e) => setTitle(e.target.value)}
+           />
+          <label htmlFor="diary" className='text-left text-slate-400'>
+              Diary
+          </label>
 
-            <label htmlFor="description" className='text-left text-slate-400'>
-                description
-            </label>
-            <textarea
-              value={description}
-              className=''
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <div className='flex flex-row justify-between'>
-              <div className='flex'>
-                <div 
-                className='w-7 h-7 cursor-pointer right-0'
-                onClick={activeGiphy}>
-                  <GifIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
-                </div>
-                <div 
-                className='w-7 h-7 cursor-pointer right-0'
-                onClick={activeEmoji}>
-                  <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
-                </div>
+          <textarea
+            placeholder='Tell us what happened today'
+            value={description}
+            className='outline-none p-2 bg-slate-800 text-slate-400 placeholder:text-slate-400'
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <div className='flex flex-row justify-between'>
+            <div className='flex'>
+              <div 
+              className='w-7 h-7 cursor-pointer right-0 hover:scale-125 transition duration-200'
+              onClick={activeGiphy}>
+                <GifIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
               </div>
-              <div>
-                <button type='submit'>
+              <div 
+              className='w-7 h-7 cursor-pointer right-0 hover:scale-125 transition duration-200'
+              onClick={activeEmoji}>
+                <FaceSmileIcon pointerEvents="none" className='w-7 h-7 text-slate-400'/>
+              </div>
+            </div>
+            <div>
+              <button className='p-2 text-slate-400 hover:scale-125 transition duration-200' type='submit'>
                   Submit
                 </button>
               </div>
@@ -121,6 +124,9 @@ function CreateForm({visible}: Props) {
               </div>
             )}
           <Giphy/>
+        </div>
+        <div className='h-5 w-full bg-stone-800'>
+
         </div>
     </motion.section>}
     </AnimatePresence>
