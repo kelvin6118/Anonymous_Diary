@@ -24,7 +24,7 @@ export default function Header({}: Props) {
           onClick={() => dispatch(switchForm(true))}
           >
           <PlusIcon 
-            className='h-10 w-10 text-slate-400 hover:scale-125 transition duration-200'
+            className='h-10 w-10 text-slate-400 '
             pointerEvents="none"/>
           </div>
            
