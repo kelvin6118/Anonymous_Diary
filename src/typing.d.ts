@@ -1,5 +1,5 @@
 interface Comment{
-    date: date;
+    date: string;
     comment: string;
 }
 
