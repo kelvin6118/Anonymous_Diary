@@ -94,15 +94,16 @@ function CreateForm({visible}: Props) {
           </label>
           <input
             type="text"
+            value={title}
             placeholder='Hello, How is your day'
             required={true}
             className='outline-none p-2 bg-slate-800 text-slate-400 placeholder:text-slate-400'
             onChange={(e) => setTitle(e.target.value)}
            />
+           
           <label htmlFor="diary" className='text-left text-slate-400'>
               Diary
           </label>
-
           <textarea
             placeholder='Tell us what happened today'
             value={description}
