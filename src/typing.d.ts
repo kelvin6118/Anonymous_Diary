@@ -3,7 +3,7 @@ interface Comment{
     comment: string;
 }
 
-interface emoji{
+export interface Emoji{
     happy: number;
     like: number;
     love: number;

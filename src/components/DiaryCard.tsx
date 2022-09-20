@@ -1,8 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { Emoji } from '../typing'
+
 
 type Props = {}
 
 export default function DiaryCard({}: Props) {
+    const [emoji,updateEmoji] = useState<Emoji>({happy: 0, like: 0, love: 0});
+
   return (
 
         <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 space-y-5 min-w-[80%] lg:min-w-[30%] md:min-w-[40%]" id="id" >
@@ -25,9 +29,9 @@ export default function DiaryCard({}: Props) {
           </div>
           <div className="footer">
             <div className="emoji--container text-left">
-              <button className="emoji" value="emo1" id="emo1">😀{1}</button>
-              <button className="emoji" value="emo2" id="emo2">👍{1}</button>
-              <button className="emoji" value="emo3" id="emo3">💖{1}</button>
+              <button onClick={() => updateEmoji({...emoji, happy: emoji.happy+1})} className="">😀{emoji.happy}</button>
+              <button onClick={() => updateEmoji({...emoji, like: emoji.like+1})}>👍{emoji.like}</button>
+              <button onClick={() => updateEmoji({...emoji, love: emoji.love+1})}>💖{emoji.love}</button>
             </div>
             <form className="flex space-x-5">
                 <div>
