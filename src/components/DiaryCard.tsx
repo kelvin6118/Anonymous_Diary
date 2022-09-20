@@ -1,11 +1,13 @@
 import React,{useState} from 'react'
-import { Emoji, Comment} from '../typing'
+import { Emoji, Comment, Diary} from '../typing'
 
 
-type Props = {}
+type Props = {
+    Diary: Diary
+}
 
-export default function DiaryCard({}: Props) {
-    const [emoji,updateEmoji] = useState<Emoji>({happy: 0, like: 0, love: 0});
+export default function DiaryCard({Diary}: Props) {
+    const [emoji,updateEmoji] = useState<Emoji>(Diary.emoji);
     const [input, setComment] = useState<string>("");
     const date:string = new Date().toUTCString();
     const comment:Comment = {date: date, comment: input};
@@ -17,19 +19,25 @@ export default function DiaryCard({}: Props) {
     return (
         <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white min-w-[70%] lg:min-w-[20%] md:min-w-[40%]" id="id" >
             <h3 className='w-full text-xl'>
-                Title
+                {Diary.title}
             </h3>
             <div className="space-y-2">
                 <img 
                 className='w-full'
-                src='https://media0.giphy.com/media/7PoDbyyGDJ3pi2WTjH/100.gif?cid=1253b287iyvi8n1vvpxy0hxyicoeorybw0nqwiohiwj5gu5r&rid=100.gif&ct=g'/>
+                src={Diary.giphy}/>
                 <p className='w-full'>
-                    just some random description, use for testing
+                    {Diary.description}
                 </p>
                 <ul className="text-left">
                 <li className="comment">
-                    <h4 className="">{comment.date}</h4>
-                    <h3 className="">{comment.comment}</h3>
+                    {
+                        Diary.comments?
+                        Diary.comments.map((comment) =>(
+                            <><h4 className="">{comment.date}</h4>
+                            <h3 className="">{comment.comment}</h3></>
+                        )):false
+                    }
+                    
                 </li>
                 </ul>
             </div>
