@@ -17,7 +17,8 @@ export default function DiaryCard({Diary}: Props) {
     }
 
     return (
-        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white min-w-[70%] lg:min-w-[20%] md:min-w-[40%]" id="id" >
+        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white min-w-[70%] lg:min-w-[20%] md:min-w-[40%]"
+        id={Diary.id} >
             <h3 className='w-full text-xl'>
                 {Diary.title}
             </h3>
