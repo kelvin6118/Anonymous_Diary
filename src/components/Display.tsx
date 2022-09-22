@@ -23,7 +23,7 @@ function Display({}: Props) {
   return (
     <div className='w-full h-fit min-h-screen flex flex-wrap justify-evenly'>
       {
-        diaries? diaries.map((diary) =>(<DiaryCard Diary={diary}/>) ) : false
+        diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : false
       }
     </div>
   )
