@@ -7,6 +7,7 @@ import { RootState } from '../redux/store';
 import Giphy from './Giphy'
 import { AnimatePresence, motion } from 'framer-motion';
 import { Diary } from '../typing'
+import {createDiary} from '../util/fetchDiary'
 
 type Props = {visible: boolean}
 
@@ -24,13 +25,15 @@ function CreateForm({visible}: Props) {
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data:Diary = {
+      id: "",
       title: title,
       description: description,
       giphy: selected,
       comments: [],
       emoji: {happy: 0,like: 0,love: 0}
     }
-    console.log(data);
+    
+    createDiary(data);
   }
 
   const activeEmoji = () => {

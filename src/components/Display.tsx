@@ -12,14 +12,12 @@ function Display({}: Props) {
     fetchDiary().then(
       response => {
         setDiaries(response)
-        console.log(response)
       }
     );
   }
 
   useEffect(()=>{
     getDiaries();
-    console.log(diaries)
   },[])
 
   return (
