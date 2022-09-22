@@ -32,7 +32,7 @@ export default function DiaryCard({diary}: Props) {
                 updateEmoji({...emoji, love: emoji.love+1})
                 return true;
         }}
-          
+        
     useEffect(()=>{
         console.log("on effect");
         diary.emoji = emoji;
