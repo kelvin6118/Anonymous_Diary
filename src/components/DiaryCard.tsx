@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Emoji, Comment, Diary} from '../typing'
 import {updateDiary} from '../util/fetchDiary'
 
@@ -14,15 +14,32 @@ export default function DiaryCard({diary}: Props) {
     const comment:Comment = {date: date, comment: input};
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
         diary.comments.push(comment);
-        diary["emoji"] = emoji;
-        handleUpdate();
-    }
-
-    const handleUpdate = () => {
         updateDiary(diary);
     }
+
+    
+
+    const handleEmoji = (emo:number) => {
+        switch(emo){
+            case 1:
+                updateEmoji({...emoji, happy: emoji.happy+1})
+                return true;
+            case 2:
+                updateEmoji({...emoji, like: emoji.like+1})
+                return true;
+            case 3:
+                updateEmoji({...emoji, love: emoji.love+1})
+                return true;
+        }}
+          
+    useEffect(()=>{
+        console.log("on effect");
+        diary.emoji = emoji;
+        console.log(diary);
+        updateDiary(diary);
+
+    },[emoji])
 
     return (
         <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white min-w-[70%] lg:min-w-[20%] md:min-w-[40%]"
@@ -54,20 +71,13 @@ export default function DiaryCard({diary}: Props) {
                 <div className="text-left space-x-1">
                 <button
                 className="hover:scale-125 transition duration-200"
-                onClick={() => {
-                    updateEmoji({...emoji, happy: emoji.happy+1})
-                    handleUpdate()}}>😀</button><span>{emoji.happy}</span>
+                onClick={() => {handleEmoji(1)}}>😀</button><span>{emoji.happy}</span>
                 <button 
                 className="hover:scale-125 transition duration-200"
-                onClick={() => {
-                    updateEmoji({...emoji, like: emoji.like+1})
-                    handleUpdate()}}>👍</button><span>{emoji.like}</span>
+                onClick={() => {handleEmoji(2)}}>👍</button><span>{emoji.like}</span>
                 <button 
                 className="hover:scale-125 transition duration-200"
-                onClick={() => {
-                    updateEmoji({...emoji, love: emoji.love+1})
-                    handleUpdate()}}>
-                        💖</button><span>{emoji.love}</span>
+                onClick={() => {handleEmoji(3)}}>💖</button><span>{emoji.love}</span>
                 </div>
                 <form 
                 className="flex space-x-5"

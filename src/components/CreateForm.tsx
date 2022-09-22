@@ -23,7 +23,6 @@ function CreateForm({visible}: Props) {
   };
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const data:Diary = {
       id: "",
       title: title,
