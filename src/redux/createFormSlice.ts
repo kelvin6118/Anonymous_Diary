@@ -14,7 +14,7 @@ const initialState: FormState = {
     EmojiSwitch: false,
     GiphySwitch: true,
     selectedGif: "",
-    refresh : true
+    refresh : false
 }
 
 export const FormSlice = createSlice({
