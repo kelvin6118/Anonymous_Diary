@@ -10,13 +10,14 @@ type Props = {
 export default function DiaryCard({diary}: Props) {
     const [emoji,updateEmoji] = useState<Emoji>(diary.emoji);
     const [input, setComment] = useState<string>("");
+    const [comments, getComments] = useState<Comment[]>(diary.comments);
     const date:string = new Date().toUTCString();
     const comment:Comment = {date: date, comment: input};
 
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         diary.comments.push(comment);
-        updateDiary(diary);
-        
+        updateDiary(diary).then(()=> {getComments(diary.comments)});
     }
 
     
@@ -37,7 +38,6 @@ export default function DiaryCard({diary}: Props) {
     useEffect(()=>{
         diary.emoji = emoji;
         updateDiary(diary);
-
     },[emoji])
 
     return (
@@ -56,8 +56,8 @@ export default function DiaryCard({diary}: Props) {
                 <ul className="text-left">
                 <li className="max-h-20 overflow-y-scroll">
                     {
-                        diary.comments?
-                        diary.comments.map((comment) =>(
+                        comments?
+                        comments.map((comment) =>(
                             <><h4 className="">{comment.date}</h4>
                             <h3 className="">{comment.comment}</h3></>
                         )):false
