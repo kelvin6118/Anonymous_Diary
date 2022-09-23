@@ -17,7 +17,7 @@ function Display() {
   const getDiaries = async () => {
     fetchDiary().then(
       response => {
-        setDiaries(response)
+        setDiaries([...response].reverse())
       }
     );
   }
