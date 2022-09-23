@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import {FaceSmileIcon, GifIcon, ArrowRightIcon} from '@heroicons/react/24/solid';
 import {useSelector, useDispatch} from 'react-redux';
-import { switchEmoji, switchGiphy ,switchForm, refresh} from '../redux/createFormSlice';
+import { switchEmoji, switchGiphy ,switchForm} from '../redux/createFormSlice';
 import { RootState } from '../redux/store';
 import Giphy from './Giphy'
 import { AnimatePresence, motion } from 'framer-motion';
@@ -33,7 +33,7 @@ function CreateForm({visible}: Props) {
       emoji: {happy: 0,like: 0,love: 0}
     }
     await createDiary(data);
-    dispatch(refresh(true));
+    window.location.reload();
   }
 
   const activeEmoji = () => {
