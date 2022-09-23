@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import DiaryCard from './DiaryCard'
+import Loading from './Loading'
 import {Diary} from '../typing'
 import {fetchDiary} from '../util/fetchDiary'
 
@@ -23,7 +24,7 @@ function Display({}: Props) {
   return (
     <div className='w-full h-fit min-h-screen flex flex-wrap justify-evenly'>
       {
-        diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : false
+        diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
       }
     </div>
   )
