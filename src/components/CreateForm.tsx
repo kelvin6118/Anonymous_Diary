@@ -22,7 +22,7 @@ function CreateForm({visible}: Props) {
     setDescription(description? description + emojiObject.emoji : emojiObject.emoji)
   };
 
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data:Diary = {
       id: "",
@@ -32,8 +32,8 @@ function CreateForm({visible}: Props) {
       comments: [],
       emoji: {happy: 0,like: 0,love: 0}
     }
-    createDiary(data);
-    setTimeout(()=>{dispatch(refresh(true));},1000);
+    await createDiary(data);
+    dispatch(refresh(true));
   }
 
   const activeEmoji = () => {
