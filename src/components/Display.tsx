@@ -23,10 +23,11 @@ function Display() {
   }
 
   useEffect(()=>{
-    if(toRefresh===true){
       getDiaries();
-      dispatch(refresh(false));
-    }
+  },[])
+
+  useEffect(()=>{
+    if(toRefresh===true){window.location.reload();}
   },[toRefresh])
 
   return (
