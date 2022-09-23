@@ -7,7 +7,9 @@ import {fetchDiary} from '../util/fetchDiary'
 
 
 function Display() {
-  const [diaries,setDiaries] = useState<Diary[]>();
+  const [diaries,setDiaries] = useState<Diary[]>([]);
+  const [stack, setStack] = useState<number>(1);
+
   const getDiaries = async () => {
     fetchDiary().then(
       response => {
@@ -21,9 +23,14 @@ function Display() {
   },[])
 
   return (
-    <div className='w-full h-fit min-h-screen flex flex-wrap justify-evenly'>
+    <div className='min-h-screen h-fit w-full'>
+      <div className='w-full h-fit flex flex-wrap justify-evenly'>
+        {
+          diaries? diaries.slice(0,stack*12).map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
+        } 
+      </div>
       {
-        diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
+        stack*12 < diaries.length?<button className='text-xl text-slate-400 p-10' onClick={()=>setStack(stack+1)}>Load More</button> : false
       }
     </div>
   )
