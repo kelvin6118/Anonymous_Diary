@@ -2,13 +2,12 @@ import React, {useState} from 'react'
 import Picker, { IEmojiData } from 'emoji-picker-react';
 import {FaceSmileIcon, GifIcon, ArrowRightIcon} from '@heroicons/react/24/solid';
 import {useSelector, useDispatch} from 'react-redux';
-import { switchEmoji, switchGiphy ,switchForm} from '../redux/createFormSlice';
+import { switchEmoji, switchGiphy ,switchForm, refresh} from '../redux/createFormSlice';
 import { RootState } from '../redux/store';
 import Giphy from './Giphy'
 import { AnimatePresence, motion } from 'framer-motion';
 import { Diary } from '../typing'
 import {createDiary} from '../util/fetchDiary'
-import { time } from 'console';
 
 type Props = {visible: boolean}
 
@@ -17,6 +16,7 @@ function CreateForm({visible}: Props) {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const selected = useSelector((state: RootState)=>state.form.selectedGif);
+  const toRefresh:boolean = useSelector((state: RootState)=>state.form.refresh);
   const dispatch = useDispatch();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
@@ -34,7 +34,9 @@ function CreateForm({visible}: Props) {
       emoji: {happy: 0,like: 0,love: 0}
     }
     createDiary(data);
-    
+    console.log(toRefresh);
+    dispatch(refresh(true));
+      
   }
 
   const activeEmoji = () => {

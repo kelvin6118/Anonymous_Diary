@@ -5,14 +5,16 @@ export interface FormState {
     FormSwitch: boolean,
     EmojiSwitch: boolean,
     GiphySwitch: boolean,
-    selectedGif: string
+    selectedGif: string,
+    refresh : boolean
 }
 
 const initialState: FormState = {
     FormSwitch: false,
     EmojiSwitch: false,
     GiphySwitch: true,
-    selectedGif: ""
+    selectedGif: "",
+    refresh : true
 }
 
 export const FormSlice = createSlice({
@@ -30,10 +32,13 @@ export const FormSlice = createSlice({
         },
         updateGif: (state, action: PayloadAction<string>) => {
             state.selectedGif = action.payload;
+        },
+        refresh: (state, action: PayloadAction<boolean>) => {
+            state.refresh = action.payload;
         }
     }
 })
 
-export const {switchForm, switchEmoji, switchGiphy, updateGif} = FormSlice.actions
+export const {switchForm, switchEmoji, switchGiphy, updateGif, refresh} = FormSlice.actions
 
 export default FormSlice.reducer
