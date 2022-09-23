@@ -16,6 +16,7 @@ export default function DiaryCard({diary}: Props) {
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         diary.comments.push(comment);
         updateDiary(diary);
+        
     }
 
     
@@ -34,28 +35,26 @@ export default function DiaryCard({diary}: Props) {
         }}
         
     useEffect(()=>{
-        console.log("on effect");
         diary.emoji = emoji;
-        console.log(diary);
         updateDiary(diary);
 
     },[emoji])
 
     return (
-        <section className="flex flex-col h-fit w-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white min-w-[70%] lg:min-w-[20%] md:min-w-[40%]"
+        <section className="flex flex-col h-fit justify-center bg-zinc-600 border-zinc-900 p-2 space-y-5 border-4 shadow-xl m-5 rounded-2xl shadow-white w-[70%] lg:w-[20%] md:w-[40%]"
         id={diary.id} >
-            <h3 className='w-full text-xl'>
+            <h3 className='w-full text-xl break-words'>
                 {diary.title}
             </h3>
             <div className="space-y-2">
                 <img 
                 className='w-full'
                 src={diary.giphy}/>
-                <p className='w-full'>
+                <p className='w-full max-h-[12rem] overflow-y-scroll'>
                     {diary.description}
                 </p>
                 <ul className="text-left">
-                <li className="comment">
+                <li className="max-h-20 overflow-y-scroll">
                     {
                         diary.comments?
                         diary.comments.map((comment) =>(
@@ -80,7 +79,7 @@ export default function DiaryCard({diary}: Props) {
                 onClick={() => {handleEmoji(3)}}>💖</button><span>{emoji.love}</span>
                 </div>
                 <form 
-                className="flex space-x-5"
+                className="flex justify-between"
                 onSubmit={handleSubmit}
                 >
                     <div className='space-x-2'>
@@ -89,7 +88,7 @@ export default function DiaryCard({diary}: Props) {
                         className='p-1'
                         onChange={(e) => setComment(e.target.value)}type="text" required placeholder="comment" />
                     </div>
-                    <button className='hover:scale-125 transition duration-200' type="submit">Post</button>
+                    <button className='hover:scale-125 transition duration-200 pr-5' type="submit">Post</button>
                 </form>
             </div>
             </section>
