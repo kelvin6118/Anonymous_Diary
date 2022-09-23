@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store';
 import { refresh } from '../redux/createFormSlice'
 
-type Props = {}
 
-function Display({}: Props) {
+
+function Display() {
   const [diaries,setDiaries] = useState<Diary[]>();
   const toRefresh:boolean = useSelector((state: RootState)=>state.form.refresh);
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function Display({}: Props) {
   }
 
   useEffect(()=>{
-    if(toRefresh==true){
+    if(toRefresh===true){
       getDiaries();
       dispatch(refresh(false));
     }
@@ -32,7 +32,7 @@ function Display({}: Props) {
   return (
     <div className='w-full h-fit min-h-screen flex flex-wrap justify-evenly'>
       {
-        toRefresh==false && diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
+        toRefresh===false && diaries? diaries.map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
       }
     </div>
   )

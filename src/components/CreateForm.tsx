@@ -16,7 +16,6 @@ function CreateForm({visible}: Props) {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const selected = useSelector((state: RootState)=>state.form.selectedGif);
-  const toRefresh:boolean = useSelector((state: RootState)=>state.form.refresh);
   const dispatch = useDispatch();
   
   const addEmoji = (e:React.MouseEvent<Element, MouseEvent>, emojiObject:IEmojiData) => {
@@ -24,6 +23,7 @@ function CreateForm({visible}: Props) {
   };
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const data:Diary = {
       id: "",
       title: title,
@@ -33,12 +33,11 @@ function CreateForm({visible}: Props) {
       emoji: {happy: 0,like: 0,love: 0}
     }
     createDiary(data);
-    setTimeout(()=>{console.log("waiting for api")},500);
-    dispatch(refresh(true));  
+    setTimeout(()=>{dispatch(refresh(true));},1000);
   }
 
   const activeEmoji = () => {
-    if(Emoji == true){
+    if(Emoji === true){
       dispatch(switchGiphy(true));
     }else{
       dispatch(switchGiphy(false));
@@ -48,7 +47,7 @@ function CreateForm({visible}: Props) {
 
   const activeGiphy = () => {
     dispatch(switchGiphy(true));
-    if(Emoji == true){
+    if(Emoji === true){
       dispatch(switchEmoji(false));
     }
   }
