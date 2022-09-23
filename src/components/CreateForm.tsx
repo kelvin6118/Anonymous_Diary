@@ -24,7 +24,6 @@ function CreateForm({visible}: Props) {
   };
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const data:Diary = {
       id: "",
       title: title,
@@ -34,9 +33,8 @@ function CreateForm({visible}: Props) {
       emoji: {happy: 0,like: 0,love: 0}
     }
     createDiary(data);
-    console.log(toRefresh);
-    dispatch(refresh(true));
-      
+    setTimeout(()=>{console.log("waiting for api")},500);
+    dispatch(refresh(true));  
   }
 
   const activeEmoji = () => {

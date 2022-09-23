@@ -26,7 +26,6 @@ function Display({}: Props) {
     if(toRefresh==true){
       getDiaries();
       dispatch(refresh(false));
-      console.log(toRefresh);
     }
   },[toRefresh])
 
