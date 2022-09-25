@@ -26,7 +26,7 @@ function Display() {
     <div className='min-h-screen h-fit w-full'>
       <div className='w-full h-fit flex flex-wrap justify-evenly'>
         {
-          diaries? diaries.slice(0,stack*12).map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
+          diaries.length > 0? diaries.slice(0,stack*12).map((diary) =>(<DiaryCard diary={diary}/>) ) : <Loading/>
         } 
       </div>
       {
